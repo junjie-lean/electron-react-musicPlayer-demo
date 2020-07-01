@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 15:41:40
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-06-17 17:17:26
+ * @Last Modified time: 2020-06-30 13:59:59
  */
 
 /**
@@ -46,7 +46,7 @@ module.exports.setDevServer = function (defaultConfig = {}) {
             require("./../package").port
           }\``
         );
-        openBrowser(url);
+        // openBrowser(url);
       }, 0);
     },
   };

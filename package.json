@@ -11,14 +11,9 @@
     "build": "npx cross-env NODE_ENV=production MEASURE=false node ./scripts/build.js",
     "debuger": "nodemon  -w ./config/webpack.base.config --exec 'NODE_ENV=development npx webpack-dev-server --config ./config/webpack.base.config' ",
     "analyze": "npx cross-env   NODE_ENV=production ANALYZE_MODE=true MEASURE=true node ./scripts/analyze.js",
-    "dev": "electron .",
-    "predev": "npx cross-env NODE_ENV=development MEASURE=false node ./scripts/dev-start.js"
+    "dev": "nodemon --watch main.js --exec 'electron .'",
+    "dev:w": "npx cross-env NODE_ENV=development MEASURE=false node ./scripts/dev-start.js"
   },
-  "keywords": [
-    "jest",
-    "webpack",
-    "react"
-  ],
   "author": "junjie.lean <junjie.lean@foxmail.com>",
   "license": "MIT",
   "description": "jf-web-app-hooks",
