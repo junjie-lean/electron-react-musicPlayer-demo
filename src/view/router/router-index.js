@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 
 import Home from "../page/layout-home";
+import Add from "../page/layout-add";
 import { AnimatedSwitch as Switch } from "react-router-transition";
 
 export default function RouterRelation() {
@@ -19,8 +20,9 @@ export default function RouterRelation() {
         className="switch-wrapper"
       >
         <Route exact path="/" component={Home} />
-        <Route path="/home" component={Home} />
-        <Redirect to="/home" />
+        <Route path="/index" component={Home} />
+        <Route path="/add" component={Add} />
+        <Redirect to="/index" />
       </Switch>
     </Router>
   );
