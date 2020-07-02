@@ -24,8 +24,9 @@
   "dependencies": {
     "antd": "4.3.4",
     "axios": "0.19.2",
-    "electron-store": "5.2.0",
-    "uuid": "8.2.0"
+    "electron-store": "^5.2.0",
+    "react-perfect-scrollbar": "^1.5.8",
+    "uuid": "^8.2.0"
   },
   "devDependencies": {
     "electron": "9.0.5",
