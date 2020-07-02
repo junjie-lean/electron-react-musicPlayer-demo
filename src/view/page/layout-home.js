@@ -2,10 +2,10 @@
  * @Author: junjie.lean
  * @Date: 2020-07-01 11:04:30
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-02 17:29:15
+ * @Last Modified time: 2020-07-02 18:54:09
  */
 
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { withRouter } from "react-router-dom";
 import { Button, Modal, Alert, message } from "antd";
 import Scrollbar from "react-perfect-scrollbar";
@@ -33,6 +33,9 @@ export default withRouter(() => {
     setAddMusicModal(false);
   };
 
+  const musicApp = useRef(new Audio());
+  musicApp.current.volume = 0.3;
+  musicApp.current.autoplay = false;
   const chooseFileDialog = () => {
     let fileSelect = ipcRenderer.sendSync("select-music-window");
     if (!fileSelect.canceled) {
@@ -56,6 +59,7 @@ export default withRouter(() => {
   };
 
   useEffect(() => {
+    console.clear();
     ipcRenderer.on("get-music-main", (event, content) => {
       setAllFileList(content);
     });
@@ -74,7 +78,6 @@ export default withRouter(() => {
         <PlusSquareOutlined />
         添加音乐
       </Button>
-
       <div style={{ width: "90%", margin: "0 auto" }}>
         {allFileList.length == 0 ? (
           <div>请添加本地音乐</div>
@@ -90,9 +93,23 @@ export default withRouter(() => {
                       />
                     </span>
                     <span>{item.fileName}</span>
-                    <span>
-                      <PlayCircleOutlined />
-                      {/* <PauseCircleOutlined /> */}
+                    <span
+                      onClick={() => {
+                        if (currentPlay.id !== item.id) {
+                          setCurrentPlay(item);
+                          musicApp.current.src = "file://" + item.path;
+                          console.log(musicApp.current.networkState);
+                          musicApp.current.play();
+                        } else {
+                          musicApp.current.pause();
+                        }
+                      }}
+                    >
+                      {currentPlay.id == item.id ? (
+                        <PauseCircleOutlined />
+                      ) : (
+                        <PlayCircleOutlined />
+                      )}
                     </span>
                     <span>
                       <DeleteOutlined />

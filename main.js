@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-06-30 13:49:56
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-02 16:35:44
+ * @Last Modified time: 2020-07-02 18:51:37
  */
 
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
@@ -17,6 +17,7 @@ class AppWindow extends BrowserWindow {
       height: 700,
       webPreferences: {
         nodeIntegration: true,
+        webSecurity: false,
       },
       show: false,
     };
