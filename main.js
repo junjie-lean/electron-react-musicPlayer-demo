@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-06-30 13:49:56
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-02 16:19:58
+ * @Last Modified time: 2020-07-02 16:35:44
  */
 
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
@@ -60,6 +60,7 @@ app.whenReady().then(() => {
 
   ipcMain.on("import-music-window", (event, content) => {
     let currentFileList = myStore.addTrack(content).getTracks();
-    event.reply("get-music-main", currentFileList);
+    //   event.reply("get-music-main", currentFileList);
+    event.returnValue = currentFileList;
   });
 });

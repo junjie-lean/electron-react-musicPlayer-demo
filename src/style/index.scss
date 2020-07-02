@@ -10,6 +10,7 @@ body {
     "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  user-select: none;
 }
 
 code {
@@ -61,4 +62,31 @@ code {
 
 .lean-music-content {
   padding: 20px;
+}
+
+.lean-music-list-item {
+  display: flex;
+  padding-left: 3px;
+  height: 50px;
+  line-height: 50px;
+  margin: 0;
+  &:hover {
+    cursor: pointer;
+    border: 1px dashed transparent;
+  }
+  > span {
+    display: inline-block;
+  }
+  > span:nth-child(1) {
+    width: 3%;
+  }
+  > span:nth-child(2) {
+    width: 77%;
+  }
+  > span:nth-child(3) {
+    width: 10%;
+  }
+  > span:nth-child(4) {
+    width: 10%;
+  }
 }
