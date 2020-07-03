@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-01-10 11:06:12
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-03-11 13:43:35
+ * @Last Modified time: 2020-07-03 09:34:14
  */
 
 /**
@@ -19,18 +19,39 @@ let startDevServer = spawn(
   "npx",
   ["webpack-dev-server", "--config", "./config/webpack.base.config", "--color"],
   {
-    env: { ...process.env }
+    env: { ...process.env },
   }
 );
 
-startDevServer.stdout.on("data", data => {
+startDevServer.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-startDevServer.stderr.on("data", data => {
+startDevServer.stderr.on("data", (data) => {
   console.log(data.toString());
 });
 
-startDevServer.on("close", code => {
+startDevServer.on("close", (code) => {
+  console.log(code);
+});
+
+// "nodemon --watch main.js --exec 'electron .'"
+let startElectron = spawn("nodemon", [
+  "--watch",
+  "main.js",
+  "--exec",
+  "electron",
+  ".",
+]);
+
+startElectron.stdout.on("data", (data) => {
+  console.log(data.toString());
+});
+
+startElectron.stderr.on("data", (data) => {
+  console.log(data.toString());
+});
+
+startElectron.on("close", (code) => {
   console.log(code);
 });
