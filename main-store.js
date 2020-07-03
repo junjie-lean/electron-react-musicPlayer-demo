@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-07-02 13:55:47
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-02 15:33:59
+ * @Last Modified time: 2020-07-03 14:10:54
  */
 
 const Store = require("electron-store");
@@ -17,7 +17,7 @@ module.exports = class DataStore extends Store {
   }
   saveTracks() {
     this.set("tracks", this.tracks);
-    return this;
+    return this.getTracks();
   }
   getTracks() {
     return this.get("tracks") || [];

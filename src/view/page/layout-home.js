@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-07-01 11:04:30
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-03 09:35:19
+ * @Last Modified time: 2020-07-03 14:12:16
  */
 
 import React, { useEffect, useState, useRef } from "react";
@@ -28,6 +28,7 @@ export default withRouter(() => {
   const [tmpFileSelectList, setTmpFileSelectList] = useState([]);
   const [allFileList, setAllFileList] = useState([]);
   const [currentPlay, setCurrentPlay] = useState({});
+  const [isRenderPlayProgress, setRenderPlayProgress] = useState(false);
   const closeModal = () => {
     setTmpFileSelectList([]);
     setAddMusicModal(false);
@@ -58,8 +59,26 @@ export default withRouter(() => {
     closeModal();
   };
 
+  const setCurrentPlayDOM = (currentPlay) => {
+    if (isRenderPlayProgress) {
+    } else {
+      if (currentPlay && currentPlay.id) {
+        setRenderPlayProgress(true);
+      }
+    }
+  };
+
+  const deleteMusic = (id) => {
+    let result = ipcRenderer.sendSync("delete-music-window", { id });
+    setAllFileList(result)
+  };
+
   useEffect(() => {
-    console.clear();
+    console.log("play change:", currentPlay);
+    setCurrentPlayDOM(currentPlay);
+  }, [currentPlay]);
+
+  useEffect(() => {
     ipcRenderer.on("get-music-main", (event, content) => {
       setAllFileList(content);
     });
@@ -111,7 +130,11 @@ export default withRouter(() => {
                         <PlayCircleOutlined />
                       )}
                     </span>
-                    <span>
+                    <span
+                      onClick={() => {
+                        deleteMusic(item.id);
+                      }}
+                    >
                       <DeleteOutlined />
                     </span>
                   </p>
@@ -121,7 +144,9 @@ export default withRouter(() => {
           </div>
         )}
       </div>
-
+      {isRenderPlayProgress ? (
+        <div>播放器{path.basename(currentPlay.fileName, ".mp3")}</div>
+      ) : null}
       <Modal
         style={{
           width: "60%",
