@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-06-30 13:49:56
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-03 15:06:11
+ * @Last Modified time: 2020-07-06 15:50:10
  */
 
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");

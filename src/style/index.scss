@@ -22,6 +22,9 @@ code {
   height: 100%;
   width: 100%;
   position: relative;
+  min-height: 768px;
+  min-width: 1366px;
+  overflow: hidden;
   &:after {
     content: "";
     position: absolute;
@@ -78,15 +81,32 @@ code {
     display: inline-block;
   }
   > span:nth-child(1) {
-    width: 3%;
+    width: 5%;
+    text-align: center;
   }
   > span:nth-child(2) {
-    width: 77%;
+    width: 85%;
   }
   > span:nth-child(3) {
-    width: 10%;
+    width: 5%;
+    text-align: center;
   }
   > span:nth-child(4) {
-    width: 10%;
+    width: 5%;
+    text-align: center;
+  }
+}
+
+.lean-progressContent {
+  height: 60px;
+  width: 90%;
+  margin: 0 auto;
+  background: #fff;
+  opacity: 0.7;
+  border-radius: 4px;
+  padding: 15px;
+  .lean-time-info {
+    display: flex;
+    justify-content: space-between;
   }
 }

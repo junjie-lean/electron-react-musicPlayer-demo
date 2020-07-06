@@ -2,12 +2,12 @@
  * @Author: junjie.lean
  * @Date: 2020-07-01 11:04:30
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-06 14:59:03
+ * @Last Modified time: 2020-07-06 16:12:27
  */
 
 import React, { useEffect, useState, useRef } from "react";
 import { withRouter } from "react-router-dom";
-import { Button, Modal, Alert, message } from "antd";
+import { Button, Modal, Alert, message, Progress } from "antd";
 import Scrollbar from "react-perfect-scrollbar";
 
 import {
@@ -32,11 +32,19 @@ export default withRouter(() => {
   const [allFileList, setAllFileList] = useState([]);
   const [currentPlay, setCurrentPlay] = useState({});
   const [isRenderPlayProgress, setRenderPlayProgress] = useState(false);
+  const [currentPlayTime, setCurrentPlayTime] = useState(0); //歌曲的当前播放时长 秒
+  const [currentPlayTotalTime, setCurrentPlayTotalTime] = useState(0); //当前播放歌曲的总时长  秒
 
-  const myPlayer = useRef(new Audio());
+  const myPlayer = useRef(new Audio()); //播放器实例
   myPlayer.current.volume = 0.3;
+  myPlayer.current.addEventListener("timeupdate", (e) => {
+    setCurrentPlayTime(Math.round(myPlayer.current.currentTime));
+  });
+  myPlayer.current.addEventListener("loadeddata", (e) => {
+    setCurrentPlayTotalTime(Math.round(myPlayer.current.duration));
+  });
 
-  const closeModal = () => {
+  const closeAddMusicModal = () => {
     setTmpFileSelectList([]);
     setAddMusicModal(false);
   };
@@ -60,7 +68,7 @@ export default withRouter(() => {
       tmpFileSelectList
     );
     setAllFileList(importSelect);
-    closeModal();
+    closeAddMusicModal();
   };
 
   const setCurrentPlayDOM = (currentPlay) => {
@@ -91,13 +99,34 @@ export default withRouter(() => {
       };
       myPlayer.current.src = musicReader(item.path);
       myPlayer.current.play();
-    } else {
+    } else if (currentPlay.playState === "pause") {
+      setCurrentPlay({
+        playState: "play",
+        ...item,
+      });
+      myPlayer.current.play();
+    } else if (currentPlay.playState === "play") {
       setCurrentPlay({
         playState: "pause",
         ...item,
       });
       myPlayer.current.pause();
     }
+  };
+
+  const parseTime = (second) => {
+    let time = "";
+    if (second < 60) {
+      time = `00:${second < 10 ? "0" + second : second}`;
+    } else if (second > 60 * 60) {
+      //歌曲时长大于一小时
+      //
+    } else {
+      let Minues = "0" + Math.floor(second / 60);
+      let Second = "0" + Math.floor(second % 60);
+      time = Minues.slice(-2) + ":" + Second.slice(-2);
+    }
+    return time;
   };
 
   useEffect(() => {
@@ -113,7 +142,13 @@ export default withRouter(() => {
 
   return (
     <div className="lean-music-content">
-      <h3>本地音乐播放器</h3>
+      <h3
+        onClick={() => {
+          console.clear();
+        }}
+      >
+        本地音乐播放器
+      </h3>
       <Button
         type="primary"
         style={{ width: "90%", margin: "30px auto", display: "block" }}
@@ -144,7 +179,8 @@ export default withRouter(() => {
                         playOrPause(item);
                       }}
                     >
-                      {currentPlay.id == item.id ? (
+                      {currentPlay.id === item.id &&
+                      currentPlay.playState === "play" ? (
                         <PauseCircleOutlined />
                       ) : (
                         <PlayCircleOutlined />
@@ -165,11 +201,28 @@ export default withRouter(() => {
         )}
       </div>
       {isRenderPlayProgress ? (
-        <div>
-          播放器{path.basename(currentPlay.fileName, ".mp3")}
-          <div id="mPlayer"></div>
+        <div className="lean-progressContent">
+          <div className="lean-time-info">
+            <span>{path.basename(currentPlay.fileName, ".mp3")}</span>
+            <span>
+              {parseTime(currentPlayTime)} / {parseTime(currentPlayTotalTime)}
+            </span>
+          </div>
+          <Progress
+            strokeColor={{
+              "0%": "#108ee9",
+              "100%": "#87d068",
+            }}
+            status="active"
+            showInfo={false}
+            percent={
+              Math.round((currentPlayTime / currentPlayTotalTime) * 10000) / 100
+            }
+          />
         </div>
-      ) : null}
+      ) : (
+        <div></div>
+      )}
       <Modal
         style={{
           width: "60%",
@@ -205,7 +258,7 @@ export default withRouter(() => {
           <Button
             className="lean-addMusic-headerMusic"
             type="primary"
-            onClick={closeModal}
+            onClick={closeAddMusicModal}
           >
             <SelectOutlined />
             取消
