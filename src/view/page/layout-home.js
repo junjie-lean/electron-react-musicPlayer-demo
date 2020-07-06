@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-07-01 11:04:30
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-03 15:13:11
+ * @Last Modified time: 2020-07-06 14:59:03
  */
 
 import React, { useEffect, useState, useRef } from "react";
@@ -23,20 +23,24 @@ import {
 
 const { dialog, remote, ipcRenderer } = window.require("electron");
 const path = window.require("path");
+const fs = window.require("fs");
+const { Buffer } = window.require("Buffer");
+
 export default withRouter(() => {
   const [addMusicModal, setAddMusicModal] = useState(false);
   const [tmpFileSelectList, setTmpFileSelectList] = useState([]);
   const [allFileList, setAllFileList] = useState([]);
   const [currentPlay, setCurrentPlay] = useState({});
   const [isRenderPlayProgress, setRenderPlayProgress] = useState(false);
+
+  const myPlayer = useRef(new Audio());
+  myPlayer.current.volume = 0.3;
+
   const closeModal = () => {
     setTmpFileSelectList([]);
     setAddMusicModal(false);
   };
 
-  const musicApp = useRef(new Audio());
-  musicApp.current.volume = 0.3;
-  musicApp.current.autoplay = false;
   const chooseFileDialog = () => {
     let fileSelect = ipcRenderer.sendSync("select-music-window");
     if (!fileSelect.canceled) {
@@ -71,6 +75,29 @@ export default withRouter(() => {
   const deleteMusic = (id) => {
     let result = ipcRenderer.sendSync("delete-music-window", { id });
     setAllFileList(result);
+  };
+
+  const playOrPause = (item) => {
+    if (currentPlay.id !== item.id) {
+      setCurrentPlay({
+        playState: "play",
+        ...item,
+      });
+      const musicReader = () => {
+        const muiscFile =
+          "data:audio/wav;base64," +
+          Buffer.from(fs.readFileSync(item.path)).toString("base64");
+        return muiscFile;
+      };
+      myPlayer.current.src = musicReader(item.path);
+      myPlayer.current.play();
+    } else {
+      setCurrentPlay({
+        playState: "pause",
+        ...item,
+      });
+      myPlayer.current.pause();
+    }
   };
 
   useEffect(() => {
@@ -114,14 +141,7 @@ export default withRouter(() => {
                     <span>{item.fileName}</span>
                     <span
                       onClick={() => {
-                        if (currentPlay.id !== item.id) {
-                          setCurrentPlay(item);
-                          musicApp.current.src = item.path;
-                          console.log(musicApp.current.networkState);
-                          musicApp.current.play();
-                        } else {
-                          musicApp.current.pause();
-                        }
+                        playOrPause(item);
                       }}
                     >
                       {currentPlay.id == item.id ? (
@@ -145,7 +165,10 @@ export default withRouter(() => {
         )}
       </div>
       {isRenderPlayProgress ? (
-        <div>播放器{path.basename(currentPlay.fileName, ".mp3")}</div>
+        <div>
+          播放器{path.basename(currentPlay.fileName, ".mp3")}
+          <div id="mPlayer"></div>
+        </div>
       ) : null}
       <Modal
         style={{
