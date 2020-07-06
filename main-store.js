@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-07-02 13:55:47
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-03 14:10:54
+ * @Last Modified time: 2020-07-06 16:27:22
  */
 
 const Store = require("electron-store");
@@ -38,6 +38,10 @@ module.exports = class DataStore extends Store {
   }
   deleteTrack(id) {
     this.tracks = this.tracks.filter((item) => item.id != id);
+    return this.saveTracks();
+  }
+  removeAll() {
+    this.tracks = [];
     return this.saveTracks();
   }
 };
