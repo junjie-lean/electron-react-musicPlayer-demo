@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-06-17 16:51:24
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-06-17 17:53:18
+ * @Last Modified time: 2020-07-06 17:16:20
  */
 
 const spawn = require("cross-spawn");
@@ -40,7 +40,7 @@ let zipName = `build${
   package.projectName ? "." + package.projectName : ""
 }.${hash}.zip`;
 
-zipper.sync.zip("./build").compress().save(zipName);
+zipper.sync.zip("./build").compress().save("./dist/"+zipName);
 
 console.log(
   chalk.hex("#00d684").bold(`Zip completed, package name: "${zipName}"`)
