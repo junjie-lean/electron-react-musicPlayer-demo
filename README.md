@@ -8,7 +8,9 @@
 
 ## 启动方式:
 
-    `npm run dev`
+    ```
+    npm run dev
+    ```
 
 ## env:
 
