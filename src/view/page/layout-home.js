@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-07-01 11:04:30
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-03 14:12:16
+ * @Last Modified time: 2020-07-03 15:13:11
  */
 
 import React, { useEffect, useState, useRef } from "react";
@@ -70,7 +70,7 @@ export default withRouter(() => {
 
   const deleteMusic = (id) => {
     let result = ipcRenderer.sendSync("delete-music-window", { id });
-    setAllFileList(result)
+    setAllFileList(result);
   };
 
   useEffect(() => {
@@ -116,7 +116,7 @@ export default withRouter(() => {
                       onClick={() => {
                         if (currentPlay.id !== item.id) {
                           setCurrentPlay(item);
-                          musicApp.current.src = "file://" + item.path;
+                          musicApp.current.src = item.path;
                           console.log(musicApp.current.networkState);
                           musicApp.current.play();
                         } else {
