@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-01-10 11:06:12
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-03 09:34:14
+ * @Last Modified time: 2020-07-06 17:03:26
  */
 
 /**
@@ -36,13 +36,15 @@ startDevServer.on("close", (code) => {
 });
 
 // "nodemon --watch main.js --exec 'electron .'"
-let startElectron = spawn("nodemon", [
-  "--watch",
-  "main.js",
-  "--exec",
-  "electron",
-  ".",
-]);
+// let startElectron = spawn("nodemon", [
+//   "--watch",
+//   "main.js",
+//   "--exec",
+//   "electron",
+//   ".",
+// ]);
+
+let startElectron = spawn("electron", ["."]);
 
 startElectron.stdout.on("data", (data) => {
   console.log(data.toString());

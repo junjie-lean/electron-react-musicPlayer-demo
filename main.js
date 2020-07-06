@@ -2,13 +2,13 @@
  * @Author: junjie.lean
  * @Date: 2020-06-30 13:49:56
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-06 16:25:58
+ * @Last Modified time: 2020-07-06 17:04:04
  */
 
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
-
 const Store = require("./main-store");
 const myStore = new Store();
+const isDev = require("electron-is-dev");
 
 class AppWindow extends BrowserWindow {
   constructor(config, location) {
@@ -32,8 +32,9 @@ class AppWindow extends BrowserWindow {
 }
 
 app.whenReady().then(() => {
-  let mainWindow = new AppWindow({}, "http://localhost:5000");
-
+  let location = isDev ? "http://localhost:5000" : "./build/index.html";
+  let mainWindow = new AppWindow({}, location);
+  cosnole.log('yomi')
   mainWindow.webContents.on("did-finish-load", () => {
     mainWindow.send("get-music-main", myStore.getTracks());
   });
@@ -69,4 +70,13 @@ app.whenReady().then(() => {
     let currentFileList = myStore.deleteTrack(id);
     event.returnValue = currentFileList;
   });
+
+  if (isDev) {
+    const elemon = require("elemon");
+    elemon({
+      app: app,
+      mainFile: "main.js",
+      bws: [{ bw: mainWindow, res: ["http://localhost:5000"] }],
+    });
+  }
 });
