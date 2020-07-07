@@ -1,7 +1,7 @@
 {
   "name": "electron-react-hook",
   "projectName": "electron-react-hook",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "main.min.js",
   "port": 5000,
   "scripts": {
@@ -9,7 +9,7 @@
     "build": "cross-env NODE_ENV=production node ./scripts/dist.js",
     "build:dist":"electron-builder",
     "build:nozip": "npx cross-env NODE_ENV=production MEASURE=false npx webpack  --config ./config/webpack.base.config",
-    "release":"cross-env GH_TOKEN=9dbdf1da784e444794969a840bc19103fed812e5 electron-builder",
+    "release":"cross-env GH_TOKEN=f527c960384a19c4c2bb2ae0dcac38bf7e5d55c7 electron-builder",
     "prebuild": "npx cross-env NODE_ENV=production MEASURE=false node ./scripts/build.js",
     "prerelease":"npm run build:nozip"
   },
@@ -76,10 +76,6 @@
   "author": "junjie.lean <junjie.lean@foxmail.com>",
   "license": "MIT",
   "description": "electron webpack react hook antd",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/junjie-lean/jf-web-app-hook.git"
-  },
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
     "antd": "4.3.4",
