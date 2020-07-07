@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2019-12-19 13:22:01
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-07 13:39:38
+ * @Last Modified time: 2020-07-07 13:51:10
  */
 
 /**
@@ -30,7 +30,10 @@ module.exports.setDefaultPlugins = function (config = {}, defaultPlugin = []) {
   if (mode === "production") {
     //打包清空文件夹插件
     plugins.push(new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns:["build/**/*","dist/**/*"]
+      dry:false,
+      verbose: false,
+      cleanOnceBeforeBuildPatterns:["**/*"," ../dist/*"],
+      dangerouslyAllowCleanPatternsOutsideProject:true
     }));
   }
 

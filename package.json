@@ -8,10 +8,10 @@
     "dev": "npx cross-env NODE_ENV=development MEASURE=false node ./scripts/dev-start.js",
     "build": "cross-env NODE_ENV=production node ./scripts/dist.js",
     "build:dist":"electron-builder",
-    "build:nozip": "npx cross-env NODE_ENV=production MEASURE=false npx webpack  --config ./config/webpack.base.config",
+    "build:nodist": "npx cross-env NODE_ENV=production MEASURE=false npx webpack  --config ./config/webpack.base.config",
     "release":"cross-env GH_TOKEN=f527c960384a19c4c2bb2ae0dcac38bf7e5d55c7 electron-builder",
     "prebuild": "npx cross-env NODE_ENV=production MEASURE=false node ./scripts/build.js",
-    "prerelease":"npm run build:nozip"
+    "prerelease":"npm run build:nodist"
   },
   "postinstall": "electron-builder install-app-deps",
   "build": {
