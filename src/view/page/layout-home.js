@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-07-01 11:04:30
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-07 15:28:01
+ * @Last Modified time: 2020-07-07 15:41:15
  */
 
 import React, { useEffect, useState, useRef } from "react";
@@ -24,7 +24,7 @@ import {
 const { dialog, remote, ipcRenderer } = window.require("electron");
 const path = window.require("path");
 const fs = window.require("fs");
-const { Buffer } = window.require("Buffer");
+const { Buffer } = window.require("buffer");
 
 export default withRouter(() => {
   const [addMusicModal, setAddMusicModal] = useState(false);
