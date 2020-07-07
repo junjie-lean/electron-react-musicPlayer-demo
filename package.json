@@ -2,16 +2,16 @@
   "name": "electron-react-hook",
   "projectName": "electron-react-hook",
   "version": "1.2.1",
-  "main": "main.min.js",
+  "main": "main.js",
   "port": 5000,
   "scripts": {
     "dev": "npx cross-env NODE_ENV=development MEASURE=false node ./scripts/dev-start.js",
     "build": "cross-env NODE_ENV=production node ./scripts/dist.js",
-    "build:dist":"electron-builder",
+    "build:dist": "electron-builder",
     "build:nodist": "npx cross-env NODE_ENV=production MEASURE=false npx webpack  --config ./config/webpack.base.config",
-    "release":"cross-env GH_TOKEN=f527c960384a19c4c2bb2ae0dcac38bf7e5d55c7 electron-builder",
+    "release": "cross-env GH_TOKEN=f527c960384a19c4c2bb2ae0dcac38bf7e5d55c7 electron-builder",
     "prebuild": "npx cross-env NODE_ENV=production MEASURE=false node ./scripts/build.js",
-    "prerelease":"npm run build:nodist"
+    "prerelease": "npm run build:nodist"
   },
   "postinstall": "electron-builder install-app-deps",
   "build": {
@@ -20,10 +20,27 @@
     "directories": {
       "output": "dist"
     },
+    "files": [
+      "build/**/*",
+      "statisc/*",
+      "main.js",
+      "main.min.js",
+      "main-store.js",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+      "!**/node_modules/*.d.ts",
+      "!**/node_modules/.bin",
+      "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
+      "!**/._*",
+      "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
+      "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
+      "!**/{appveyor.yml,.travis.yml,circle.yml}",
+      "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}"
+    ],
     "mac": {
       "target": "dmg",
       "category": "public.app-category.productivity",
-      "icon": "build/timg.icns"
+      "icon": "statisc/timg.icns"
     },
     "dmg": {
       "background": "statisc/bg.png",

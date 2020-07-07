@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-06-30 13:49:56
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-06 17:04:04
+ * @Last Modified time: 2020-07-07 14:38:26
  */
 
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
@@ -24,7 +24,7 @@ class AppWindow extends BrowserWindow {
     const effectConfig = { ...baseConifg, ...config };
     super(effectConfig);
     this.loadURL(location);
-    this.webContents.openDevTools();
+    isDev ? this.webContents.openDevTools() : null;
     this.once("ready-to-show", () => {
       this.show();
     });
@@ -32,9 +32,10 @@ class AppWindow extends BrowserWindow {
 }
 
 app.whenReady().then(() => {
-  let location = isDev ? "http://localhost:5000" : "./build/index.html";
+  let location = false
+    ? "http://localhost:5000"
+    : `file://${__dirname}/build/index.html`;
   let mainWindow = new AppWindow({}, location);
-  cosnole.log('yomi')
   mainWindow.webContents.on("did-finish-load", () => {
     mainWindow.send("get-music-main", myStore.getTracks());
   });
