@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-07-01 11:04:30
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-06 16:12:27
+ * @Last Modified time: 2020-07-07 15:28:01
  */
 
 import React, { useEffect, useState, useRef } from "react";
@@ -43,6 +43,11 @@ export default withRouter(() => {
   myPlayer.current.addEventListener("loadeddata", (e) => {
     setCurrentPlayTotalTime(Math.round(myPlayer.current.duration));
   });
+
+  useEffect(()=>{
+    console.log(Buffer)
+  },[])
+
 
   const closeAddMusicModal = () => {
     setTmpFileSelectList([]);
@@ -130,7 +135,6 @@ export default withRouter(() => {
   };
 
   useEffect(() => {
-    console.log("play change:", currentPlay);
     setCurrentPlayDOM(currentPlay);
   }, [currentPlay]);
 

@@ -1,13 +1,14 @@
+/*
+ * @Author: junjie.lean
+ * @Date: 2020-07-07 15:26:55
+ * @Last Modified by:   junjie.lean
+ * @Last Modified time: 2020-07-07 15:26:55
+ */
+
 import React from "react";
-import {
-  HashRouter as Router,
-  Route,
-  // Switch,
-  Redirect,
-} from "react-router-dom";
+import { HashRouter as Router, Route, Redirect } from "react-router-dom";
 
 import Home from "../page/layout-home";
-import Add from "../page/layout-add";
 import { AnimatedSwitch as Switch } from "react-router-transition";
 
 export default function RouterRelation() {
@@ -21,7 +22,6 @@ export default function RouterRelation() {
       >
         <Route exact path="/" component={Home} />
         <Route path="/index" component={Home} />
-        <Route path="/add" component={Add} />
         <Redirect to="/index" />
       </Switch>
     </Router>

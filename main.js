@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-06-30 13:49:56
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-07 14:38:26
+ * @Last Modified time: 2020-07-07 15:25:59
  */
 
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
@@ -26,13 +26,13 @@ class AppWindow extends BrowserWindow {
     this.loadURL(location);
     isDev ? this.webContents.openDevTools() : null;
     this.once("ready-to-show", () => {
-      this.show();
+      this.show(); 
     });
   }
 }
 
 app.whenReady().then(() => {
-  let location = false
+  let location = isDev
     ? "http://localhost:5000"
     : `file://${__dirname}/build/index.html`;
   let mainWindow = new AppWindow({}, location);
