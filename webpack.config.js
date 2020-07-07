@@ -2,7 +2,7 @@
  * @Author: junjie.lean 
  * @Date: 2020-06-30 10:11:24 
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-06 17:22:03
+ * @Last Modified time: 2020-07-07 10:21:11
  */
 
 
@@ -13,7 +13,7 @@ module.exports = {
     target: "electron-main",
     entry: "./main.js",
     output: {
-        path: path.resolve(__dirname, './build'),
+        path: path.resolve(__dirname),
         filename: "main.min.js"
     },
     stats:"none",

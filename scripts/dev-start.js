@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-01-10 11:06:12
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-06 17:03:26
+ * @Last Modified time: 2020-07-07 10:28:34
  */
 
 /**
@@ -32,7 +32,7 @@ startDevServer.stderr.on("data", (data) => {
 });
 
 startDevServer.on("close", (code) => {
-  console.log(code);
+  // console.log(code);
 });
 
 // "nodemon --watch main.js --exec 'electron .'"
@@ -55,5 +55,5 @@ startElectron.stderr.on("data", (data) => {
 });
 
 startElectron.on("close", (code) => {
-  console.log(code);
+  // console.log(code);
 });

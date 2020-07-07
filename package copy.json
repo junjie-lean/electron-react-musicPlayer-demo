@@ -7,13 +7,15 @@
   "scripts": {
     "test": "jest",
     "test:c": "jest --coverage",
-    "build:nozip": "npx cross-env NODE_ENV=production MEASURE=false npx webpack  --config ./config/webpack.base.config",
-    "build:dist":"electron-builder",
-    "build": "cross-env NODE_ENV=production node ./scripts/dist.js",
-    "prebuild": "npx cross-env NODE_ENV=production MEASURE=false node ./scripts/build.js",
-    "debuger": "nodemon  -w ./config/webpack.base.config --exec 'NODE_ENV=development npx webpack-dev-server --config ./config/webpack.base.config' ",
     "analyze": "npx cross-env   NODE_ENV=production ANALYZE_MODE=true MEASURE=true node ./scripts/analyze.js",
-    "dev": "npx cross-env NODE_ENV=development MEASURE=false node ./scripts/dev-start.js"
+    "debuger": "nodemon  -w ./config/webpack.base.config --exec 'NODE_ENV=development npx webpack-dev-server --config ./config/webpack.base.config' ",
+    "dev": "npx cross-env NODE_ENV=development MEASURE=false node ./scripts/dev-start.js",
+    "build": "cross-env NODE_ENV=production node ./scripts/dist.js",
+    "build:dist":"electron-builder",
+    "build:nozip": "npx cross-env NODE_ENV=production MEASURE=false npx webpack  --config ./config/webpack.base.config",
+    "release":"electron-builder",
+    "prebuild": "npx cross-env NODE_ENV=production MEASURE=false node ./scripts/build.js",
+    "prerelease":"npm run build"
   },
   "postinstall": "electron-builder install-app-deps",
   "build": {
