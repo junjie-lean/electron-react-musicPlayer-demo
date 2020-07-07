@@ -13,9 +13,9 @@
     "build": "cross-env NODE_ENV=production node ./scripts/dist.js",
     "build:dist":"electron-builder",
     "build:nozip": "npx cross-env NODE_ENV=production MEASURE=false npx webpack  --config ./config/webpack.base.config",
-    "release":"electron-builder",
+    "release":"cross-env GH_TOKEN=9dbdf1da784e444794969a840bc19103fed812e5 electron-builder",
     "prebuild": "npx cross-env NODE_ENV=production MEASURE=false node ./scripts/build.js",
-    "prerelease":"npm run build"
+    "prerelease":"npm run build:nozip"
   },
   "postinstall": "electron-builder install-app-deps",
   "build": {
