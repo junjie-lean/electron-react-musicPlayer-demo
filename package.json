@@ -1,7 +1,7 @@
 {
   "name": "electron-react-hook",
   "projectName": "electron-react-hook",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "main": "main.js",
   "port": 5000,
   "scripts": {
@@ -9,7 +9,7 @@
     "build": "cross-env NODE_ENV=production node ./scripts/dist.js",
     "build:dist": "electron-builder",
     "build:nodist": "npx cross-env NODE_ENV=production MEASURE=false npx webpack  --config ./config/webpack.base.config",
-    "release": "cross-env GH_TOKEN=f527c960384a19c4c2bb2ae0dcac38bf7e5d55c7 electron-builder",
+    "release": "cross-env GH_TOKEN=a246132f3bb9507bff9a3f9adb2aa815bd0e3901 electron-builder",
     "prebuild": "npx cross-env NODE_ENV=production MEASURE=false node ./scripts/build.js",
     "prerelease": "npm run build:nodist"
   },
@@ -69,7 +69,9 @@
       "target": [
         "AppImage",
         "deb"
-      ]
+      ],
+      "category": "public.app-category.productivity",
+      "icon": "statisc/timg.icns"
     },
     "win": {
       "target": [
@@ -87,7 +89,10 @@
     "nsis": {
       "allowToChangeInstallationDirectory": true,
       "oneClick": false,
-      "perMachine": false
+      "perMachine": false,
+      "installerIcon":"./statisc/timg.ico",
+      "createDesktopShortcut":true,
+      "createStartMenuShortcut":true
     }
   },
   "author": "junjie.lean <junjie.lean@foxmail.com>",
