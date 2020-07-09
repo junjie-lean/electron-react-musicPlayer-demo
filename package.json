@@ -2,7 +2,7 @@
   "name": "electron-react-hook",
   "projectName": "electron-react-hook",
   "version": "1.2.2",
-  "main": "main.js",
+  "main": "main.min.js",
   "port": 5000,
   "scripts": {
     "dev": "npx cross-env NODE_ENV=development MEASURE=false node ./scripts/dev-start.js",

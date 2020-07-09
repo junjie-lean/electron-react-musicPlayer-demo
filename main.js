@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-06-30 13:49:56
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-09 14:11:37
+ * @Last Modified time: 2020-07-09 14:28:15
  */
 
 const { app, BrowserWindow, ipcMain, dialog, Menu } = require("electron");
@@ -142,8 +142,8 @@ app.whenReady().then(() => {
     },
   ];
 
-  // const menu = Menu.buildFromTemplate(template);
-  // Menu.setApplicationMenu(menu);
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
 
   if (isDev) {
     const elemon = require("elemon");

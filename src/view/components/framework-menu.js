@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-07-09 11:02:48
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-09 14:11:33
+ * @Last Modified time: 2020-07-09 14:28:22
  */
 
 import React, { useEffect, useEtate } from "react";
@@ -103,9 +103,6 @@ export default withRouter((props) => {
     for (let onemenu of frameworkMenuList) {
       menu.append(new MenuItem(onemenu));
     }
-
-    Menu.setApplicationMenu(Menu.buildFromTemplate(frameworkMenuList));
-
     window.addEventListener(
       "contextmenu",
       (e) => {
