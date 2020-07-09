@@ -2,14 +2,14 @@
  * @Author: junjie.lean
  * @Date: 2020-07-01 11:04:30
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-07 15:41:15
+ * @Last Modified time: 2020-07-09 11:10:28
  */
 
 import React, { useEffect, useState, useRef } from "react";
 import { withRouter } from "react-router-dom";
 import { Button, Modal, Alert, message, Progress } from "antd";
 import Scrollbar from "react-perfect-scrollbar";
-
+import FrameworkMenu from "./../components/framework-menu";
 import {
   PlayCircleOutlined,
   PlusSquareOutlined,
@@ -36,18 +36,13 @@ export default withRouter(() => {
   const [currentPlayTotalTime, setCurrentPlayTotalTime] = useState(0); //当前播放歌曲的总时长  秒
 
   const myPlayer = useRef(new Audio()); //播放器实例
-  myPlayer.current.volume = 0.3;
+  myPlayer.current.volume = 0.5;
   myPlayer.current.addEventListener("timeupdate", (e) => {
     setCurrentPlayTime(Math.round(myPlayer.current.currentTime));
   });
   myPlayer.current.addEventListener("loadeddata", (e) => {
     setCurrentPlayTotalTime(Math.round(myPlayer.current.duration));
   });
-
-  useEffect(()=>{
-    console.log(Buffer)
-  },[])
-
 
   const closeAddMusicModal = () => {
     setTmpFileSelectList([]);
@@ -146,6 +141,7 @@ export default withRouter(() => {
 
   return (
     <div className="lean-music-content">
+      <FrameworkMenu />
       <h3
         onClick={() => {
           console.clear();

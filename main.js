@@ -2,14 +2,13 @@
  * @Author: junjie.lean
  * @Date: 2020-06-30 13:49:56
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-07 15:25:59
+ * @Last Modified time: 2020-07-09 14:11:37
  */
 
-const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+const { app, BrowserWindow, ipcMain, dialog, Menu } = require("electron");
 const Store = require("./main-store");
 const myStore = new Store();
 const isDev = require("electron-is-dev");
-
 class AppWindow extends BrowserWindow {
   constructor(config, location) {
     const baseConifg = {
@@ -26,7 +25,7 @@ class AppWindow extends BrowserWindow {
     this.loadURL(location);
     isDev ? this.webContents.openDevTools() : null;
     this.once("ready-to-show", () => {
-      this.show(); 
+      this.show();
     });
   }
 }
@@ -71,6 +70,80 @@ app.whenReady().then(() => {
     let currentFileList = myStore.deleteTrack(id);
     event.returnValue = currentFileList;
   });
+
+  const isMac = process.platform === "darwin";
+
+  const template = [
+    ...(isMac
+      ? [
+          {
+            label: "本地音乐播放器",
+            submenu: [
+              { role: "关于" },
+              { type: "separator" },
+              { role: "services" },
+              { type: "separator" },
+              { role: "unhide" },
+              { type: "separator" },
+              { role: "quit" },
+            ],
+          },
+        ]
+      : []),
+    {
+      label: "Edit",
+      submenu: [
+        { role: "undo" },
+        { role: "redo" },
+        { type: "separator" },
+        { role: "cut" },
+        { role: "copy" },
+        { role: "paste" },
+        ...(isMac
+          ? [
+              { role: "pasteAndMatchStyle" },
+              { role: "delete" },
+              { role: "selectAll" },
+              { type: "separator" },
+              {
+                label: "Speech",
+                submenu: [{ role: "startspeaking" }, { role: "stopspeaking" }],
+              },
+            ]
+          : [{ role: "delete" }, { type: "separator" }, { role: "selectAll" }]),
+      ],
+    },
+    {
+      label: "View",
+      submenu: [
+        { role: "reload" },
+        { role: "forcereload" },
+        { role: "toggledevtools" },
+        { type: "separator" },
+        { role: "resetzoom" },
+        { role: "zoomin" },
+        { role: "zoomout" },
+        { type: "separator" },
+        { role: "togglefullscreen" },
+      ],
+    },
+
+    {
+      role: "help",
+      submenu: [
+        {
+          label: "Learn More",
+          click: async () => {
+            const { shell } = require("electron");
+            await shell.openExternal("https://electronjs.org");
+          },
+        },
+      ],
+    },
+  ];
+
+  // const menu = Menu.buildFromTemplate(template);
+  // Menu.setApplicationMenu(menu);
 
   if (isDev) {
     const elemon = require("elemon");

@@ -65,21 +65,12 @@
         "height": 500
       }
     },
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ],
-      "category": "public.app-category.productivity",
-      "icon": "statisc/timg.icns"
-    },
     "win": {
       "target": [
         {
-          "target": "nsis-web",
+          "target": "nsis",
           "arch": [
-            "x64",
-            "ia32"
+            "x64"
           ]
         }
       ],
@@ -90,9 +81,9 @@
       "allowToChangeInstallationDirectory": true,
       "oneClick": false,
       "perMachine": false,
-      "installerIcon":"./statisc/timg.ico",
-      "createDesktopShortcut":true,
-      "createStartMenuShortcut":true
+      "installerIcon": "./statisc/timg.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
     }
   },
   "author": "junjie.lean <junjie.lean@foxmail.com>",
