@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-07-01 11:04:30
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-09 11:10:28
+ * @Last Modified time: 2020-07-09 17:31:22
  */
 
 import React, { useEffect, useState, useRef } from "react";
@@ -25,6 +25,7 @@ const { dialog, remote, ipcRenderer } = window.require("electron");
 const path = window.require("path");
 const fs = window.require("fs");
 const { Buffer } = window.require("buffer");
+const process = window.require("process");
 
 export default withRouter(() => {
   const [addMusicModal, setAddMusicModal] = useState(false);
@@ -127,6 +128,20 @@ export default withRouter(() => {
       time = Minues.slice(-2) + ":" + Second.slice(-2);
     }
     return time;
+  };
+
+  const dragFile = (e) => {
+    e.preventDefault();
+    let {
+      dataTransfer: { files },
+    } = e;
+    console.log(files);
+    for (let file of files) {
+      console.log(file);
+      if(file && file.path){
+        console.log(tmpFileSelectList)
+      }
+    }
   };
 
   useEffect(() => {
@@ -266,7 +281,23 @@ export default withRouter(() => {
         </p>
 
         <Scrollbar style={{ height: "300px" }}>
-          {tmpFileSelectList.length == 0 ? <p>请开始选择音乐</p> : null}
+          {tmpFileSelectList.length == 0 ? (
+            <div
+              style={{
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              className="lean-music-dragWrapper"
+              onDrop={dragFile}
+              onDragOver={(e) => {
+                e.preventDefault();
+              }}
+            >
+              <p>请开始选择音乐,可以直接拖动mp3文件到这里!</p>
+            </div>
+          ) : null}
           {tmpFileSelectList.length > 0 &&
             tmpFileSelectList.map((item, index) => {
               return (

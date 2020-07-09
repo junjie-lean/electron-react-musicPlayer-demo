@@ -2,13 +2,16 @@
  * @Author: junjie.lean
  * @Date: 2020-06-30 13:49:56
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-09 14:28:15
+ * @Last Modified time: 2020-07-09 14:37:07
  */
 
 const { app, BrowserWindow, ipcMain, dialog, Menu } = require("electron");
 const Store = require("./main-store");
 const myStore = new Store();
 const isDev = require("electron-is-dev");
+
+
+
 class AppWindow extends BrowserWindow {
   constructor(config, location) {
     const baseConifg = {
