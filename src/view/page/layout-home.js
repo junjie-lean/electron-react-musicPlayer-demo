@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-07-01 11:04:30
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-10 09:45:03
+ * @Last Modified time: 2020-07-10 09:49:55
  */
 
 import React, { useEffect, useState, useRef } from "react";
@@ -140,6 +140,10 @@ export default withRouter(() => {
     let fileArr = [];
     for (let file of files) {
       if (file && file.path) {
+        if (path.extname(file.path) !== ".mp3") {
+          message.warning("请选择以mp3结尾的文件");
+          return false;
+        }
         fileArr.push(file.path);
         // fileArr.push(tmpFileSelectList.path);
       }
