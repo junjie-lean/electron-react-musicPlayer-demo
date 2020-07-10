@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-07-01 11:04:30
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-09 17:31:22
+ * @Last Modified time: 2020-07-10 09:45:03
  */
 
 import React, { useEffect, useState, useRef } from "react";
@@ -55,6 +55,7 @@ export default withRouter(() => {
     if (!fileSelect.canceled) {
       let arr = [...tmpFileSelectList].concat(fileSelect.filePaths);
       arr = [...new Set(arr)];
+      // console.log(arr)
       setTmpFileSelectList(arr);
     }
   };
@@ -68,6 +69,7 @@ export default withRouter(() => {
       "import-music-window",
       tmpFileSelectList
     );
+
     setAllFileList(importSelect);
     closeAddMusicModal();
   };
@@ -135,13 +137,14 @@ export default withRouter(() => {
     let {
       dataTransfer: { files },
     } = e;
-    console.log(files);
+    let fileArr = [];
     for (let file of files) {
-      console.log(file);
-      if(file && file.path){
-        console.log(tmpFileSelectList)
+      if (file && file.path) {
+        fileArr.push(file.path);
+        // fileArr.push(tmpFileSelectList.path);
       }
     }
+    setTmpFileSelectList(fileArr);
   };
 
   useEffect(() => {
