@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-07-01 11:04:30
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-10 09:49:55
+ * @Last Modified time: 2020-07-10 17:22:30
  */
 
 import React, { useEffect, useState, useRef } from "react";
@@ -161,12 +161,17 @@ export default withRouter(() => {
     });
   }, []);
 
+  const consoleScreen = () => {
+    console.log(remote.screen.getAllDisplays());
+    console.log(remote.screen.getPrimaryDisplay());
+  };
   return (
     <div className="lean-music-content">
       <FrameworkMenu />
       <h3
         onClick={() => {
           console.clear();
+          consoleScreen();
         }}
       >
         本地音乐播放器

@@ -2,7 +2,7 @@
  * @Author: junjie.lean
  * @Date: 2020-06-17 16:51:24
  * @Last Modified by: junjie.lean
- * @Last Modified time: 2020-07-06 17:16:20
+ * @Last Modified time: 2020-07-10 13:54:50
  */
 
 const spawn = require("cross-spawn");
@@ -31,17 +31,17 @@ spawn.sync("npx", ["webpack", "--config", "./config/webpack.base.config"], {
 
 console.log(chalk.hex("#00d684").bold("Zip start, please wait..."));
 
-let hash = "";
-for (let i = 0; i < 10; i++) {
-  hash += Math.floor(Math.random() * 16).toString(16);
-}
+// let hash = "";
+// for (let i = 0; i < 10; i++) {
+//   hash += Math.floor(Math.random() * 16).toString(16);
+// }
 
-let zipName = `build${
-  package.projectName ? "." + package.projectName : ""
-}.${hash}.zip`;
+// let zipName = `build${
+//   package.projectName ? "." + package.projectName : ""
+// }.${hash}.zip`;
 
-zipper.sync.zip("./build").compress().save("./dist/"+zipName);
+// zipper.sync.zip("./build").compress().save("./dist/"+zipName);
 
-console.log(
-  chalk.hex("#00d684").bold(`Zip completed, package name: "${zipName}"`)
-);
+// console.log(
+//   chalk.hex("#00d684").bold(`Zip completed, package name: "${zipName}"`)
+// );
